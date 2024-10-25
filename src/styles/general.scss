@@ -1,0 +1,70 @@
+@use "./variables" as *;
+
+:root {
+  font-family: Inter, sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
+
+  color-scheme: light dark;
+  color: $primaryColor;
+  background-color: $white;
+
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+@font-face {
+  font-family: "Kurdis Condensed Bold";
+  src: url("src/assets/fonts/kurdis-condensed-bold.woff2") format("woff2");
+  font-weight: bold;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Kurdis Extracondensed Black";
+  src: url("src/assets/fonts/kurdis-extracondensed-black.woff2") format("woff2");
+  font-weight: 900;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Kurdis Extra Condensed";
+  src: url("src/assets/fonts/kurdis-extracondensed-extrabold.woff2")
+    format("woff2");
+  font-weight: 800;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Kurdis Extrawide Bold";
+  src: url("src/assets/fonts/kurdis-extrawide-bold.woff2") format("woff2");
+  font-weight: bold;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Kurdis Extrawide Extrabold";
+  src: url("src/assets/fonts/kurdis-extrawide-extrabold.woff2") format("woff2");
+  font-weight: 800;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Kurdis Wide Black";
+  src: url("src/assets/fonts/kurdis-wideblack.woff2") format("woff2");
+  font-weight: 900;
+  font-style: normal;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+*::selection {
+  background-color: $primaryColor; /* Colore di sfondo della selezione */
+  color: $white; /* Colore del testo selezionato */
+}

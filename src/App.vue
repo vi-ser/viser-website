@@ -1,16 +1,22 @@
 <script>
 import AppNav from './components/AppNav.vue';
+import AppSlider from './components/AppSlider.vue';
+import AppHeader from './components/AppHeader.vue';
 
 export default {
   components: {
     AppNav,
+    AppSlider,
+    AppHeader,
   }
 }
 </script>
 
 <template>
   <AppNav></AppNav>
-  <h1 class="text-uppercase">Hello World</h1>
+  <AppHeader></AppHeader>
+  <AppSlider></AppSlider>
+
 
 </template>
 
@@ -18,9 +24,7 @@ export default {
 @use "./styles/variables" as *;
 @use "./styles/mixins" as *;
 
-h1 {
-  font-family: 'Kurdis Extracondensed Black', sans-serif;
-  color: $primaryColor;
-  font-size: 6rem;
+body {
+  background-color: red;
 }
 </style>

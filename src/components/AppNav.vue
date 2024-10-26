@@ -1,18 +1,23 @@
 <script>
 import { ref } from 'vue';
+import { store } from '../store';
+
 export default {
     name: 'AppNav',
 
-
-    setup() {
-        const isDarkMode = ref(false)
-
-        function toggleDarkMode() {
-            isDarkMode.value = !isDarkMode.value;
-            document.body.classList.toggle('dark-mode', isDarkMode.value);
+    data() {
+        return {
+            store,
+            isDarkMode: store.isDarkMode,
         }
+    },
 
-        return { isDarkMode, toggleDarkMode }
+
+    methods: {
+        toggleDarkMode() {
+            store.toggleDarkMode(); // Call the method in the store
+            document.body.classList.toggle('dark-mode', store.state.isDarkMode);
+        }
     }
 
 };
@@ -38,20 +43,13 @@ export default {
                 <a href="#" class="nav-link">contact me</a>
             </div>
 
-            <div @click="toggleDarkMode" class="dark-mode-btn">
-
-                <!-- sun icon -->
-
-                <svg v-if="isDarkMode" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                    class="bi bi-moon-fill" viewBox="0 0 16 16">
-                    <path
-                        d="M6 .278a.77.77 0 0 1 .08.858 7.2 7.2 0 0 0-.878 3.46c0 4.021 3.278 7.277 7.318 7.277q.792-.001 1.533-.16a.79.79 0 0 1 .81.316.73.73 0 0 1-.031.893A8.35 8.35 0 0 1 8.344 16C3.734 16 0 12.286 0 7.71 0 4.266 2.114 1.312 5.124.06A.75.75 0 0 1 6 .278" />
-                </svg>
-                <svg v-else xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                    class="bi bi-sun-fill" viewBox="0 0 16 16">
-                    <path
-                        d="M8 12a4 4 0 1 0 0-8 4 4 0 0 0 0 8M8 0a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-1 0v-2A.5.5 0 0 1 8 0m0 13a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-1 0v-2A.5.5 0 0 1 8 13m8-5a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1 0-1h2a.5.5 0 0 1 .5.5M3 8a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1 0-1h2A.5.5 0 0 1 3 8m10.657-5.657a.5.5 0 0 1 0 .707l-1.414 1.415a.5.5 0 1 1-.707-.708l1.414-1.414a.5.5 0 0 1 .707 0m-9.193 9.193a.5.5 0 0 1 0 .707L3.05 13.657a.5.5 0 0 1-.707-.707l1.414-1.414a.5.5 0 0 1 .707 0m9.193 2.121a.5.5 0 0 1-.707 0l-1.414-1.414a.5.5 0 0 1 .707-.707l1.414 1.414a.5.5 0 0 1 0 .707M4.464 4.465a.5.5 0 0 1-.707 0L2.343 3.05a.5.5 0 1 1 .707-.707l1.414 1.414a.5.5 0 0 1 0 .708" />
-                </svg>
+            <div @click="toggleDarkMode">
+                <label class="switch">
+                    <input @click="toggleDarkMode" type="checkbox">
+                    <ion-icon class="sun" name="sunny"></ion-icon>
+                    <ion-icon class="moon" name="moon"></ion-icon>
+                    <span class="toggle"></span>
+                </label>
             </div>
         </div>
     </nav>
@@ -176,29 +174,63 @@ nav {
             }
         }
 
-        .dark-mode-btn {
-
-            display: flex;
-            align-items: center;
-            justify-content: center;
-
-
-            .bi {
-                height: 2.5rem;
-                width: 2.5rem;
-                color: $primaryColor;
-                padding: .25rem;
-                line-height: 0;
-            }
-
+        label {
+            width: 2rem;
+            height: 2rem;
+            margin: 0;
             border-radius: 50%;
-            transition: ease-in-out 0.3s;
-
-            &:hover {
-                transform: rotate(360deg);
-            }
+            cursor: pointer;
+            display: flex;
+            justify-content: center;
+            align-items: center;
         }
 
+        input {
+            position: absolute;
+            opacity: 0;
+        }
+
+        .sun {
+            font-size: 1.5em;
+            color: $primaryColor;
+            z-index: 1;
+            transition: 1s ease;
+            transition-delay: .3s;
+        }
+
+        .moon {
+            font-size: 1.5em;
+            position: absolute;
+            color: $white;
+            z-index: 1;
+            transform: scale(0);
+            transition: 1s ease;
+        }
+
+        .toggle {
+            position: absolute;
+            display: block;
+            width: 2rem;
+            height: 2rem;
+            border-radius: 50%;
+            z-index: 0;
+            background-color: $primary100;
+        }
+
+        input:checked~.toggle {
+            background-color: #121415;
+        }
+
+        input:checked~.sun {
+            transform: rotate(360deg) scale(0);
+            transition-delay: 0s;
+
+        }
+
+        input:checked~.moon {
+            transform: scale(1) rotate(360deg);
+            transition-delay: .3s;
+        }
 
     }
 
@@ -225,16 +257,6 @@ nav {
             color: $white !important;
         }
 
-        .dark-mode-btn {
-
-
-            .bi {
-
-                fill: $white;
-
-            }
-
-        }
 
     }
 

@@ -1,5 +1,21 @@
 @use "./variables" as *;
 
+@mixin navLink {
+  color: $primaryColor;
+  text-decoration: none;
+  text-transform: uppercase;
+  font-size: 1rem;
+  padding: 0.5em 1em;
+  border: 2px solid transparent;
+  transition: ease 0.3s;
+  user-select: none;
+
+  &:hover {
+    // background-color: $primary100;
+    border: 2px solid $primaryColor;
+  }
+}
+
 // @mixin primaryButton {
 //   background-color: $primaryColor;
 //   padding: 24px;
